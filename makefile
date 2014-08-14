@@ -73,7 +73,7 @@ clean :
 
 install:
 	mkdir -p ${INSTALL_DIRECTORY}
-	${INSTALL} ${PROGRAMS} ${INSTALL_DIRECTORY}
+	/usr/bin/install ${PROGRAMS} ${INSTALL_DIRECTORY}
 
 CFLAGS       = -I. -I/usr/include/
 
