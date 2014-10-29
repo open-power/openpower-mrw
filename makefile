@@ -36,6 +36,7 @@ PROGRAMS += mrwChipIDs
 PROGRAMS += mrwDMIParser
 PROGRAMS += mrwMruIdParser
 PROGRAMS += mrwLocationCodeParser
+PROGRAMS += mrwProcSpiParser
 
 SOURCE += xmlutil.C
 SOURCE += mrwTargetParser.C
@@ -59,6 +60,8 @@ SOURCE += mrwI2CParser.C
 SOURCE += mrwDMIParser.C
 SOURCE += mrwPower.C
 SOURCE += mrwMruIdParser.C
+SOURCE += mrwProcSpiParser.C
+SOURCE += mrwProcSpiCommon.C
 
 
 SOURCE_OBJS  = $(basename $(SOURCE))
@@ -135,4 +138,7 @@ mrwMruIdParser: mrwMruIdParser.o xmlutil.o mrwParserCommon.o
 	$(LD) $(LDFLAGS) -o $@  $^  -lstdc++ -lgcc -lxml2
 
 mrwLocationCodeParser: mrwLocationCodeParser.o xmlutil.o mrwParserCommon.o
+	$(LD) $(LDFLAGS) -o $@  $^  -lstdc++ -lgcc -lxml2
+
+mrwProcSpiParser: mrwProcSpiParser.o mrwProcSpiCommon.o xmlutil.o mrwParserCommon.o
 	$(LD) $(LDFLAGS) -o $@  $^  -lstdc++ -lgcc -lxml2
