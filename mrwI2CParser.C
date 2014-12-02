@@ -520,6 +520,24 @@ void printI2CBus(I2CSystemBus* i_bus)
     fprintf(g_fp, "%s<part-num>%s</part-num>\n", mrwIndent(2), slave->part().getChildValue("part-num").c_str());
     fprintf(g_fp, "%s<card-id>%s</card-id>\n", mrwIndent(2), slave->plug()->id().c_str());
     fprintf(g_fp, "%s<card-location-code>%s</card-location-code>\n", mrwIndent(2), slave->plug()->location().c_str());
+
+    //Just print the card target for DIMMs, since we
+    //know those are the only cards that have targets
+    string targetPath;
+    ecmdTarget_t target;
+    if (slave->plug()->card().getChildValue("card-type") == "dimm")
+    {
+        //DIMM target lookups take a special instance path
+        targetPath = mrwMemGetDimmInstancePath(slave->plug());
+        target = mrwGetTarget(targetPath, g_targetFile);
+    }
+    if (target.node != -1)
+    {
+        fprintf(g_fp, "%s<card-target><name>%s</name><node>%d</node><position>%d</position></card-target>\n",
+                mrwIndent(2), target.name.c_str(), target.node, target.position);
+    }
+
+
     fprintf(g_fp, "%s<address>%s</address>\n", mrwIndent(2), address.c_str());
     fprintf(g_fp, "%s<speed>%d</speed>\n", mrwIndent(2), slave->getSpeed());
     fprintf(g_fp, "%s<presence>%d</presence>\n", mrwIndent(2), (i_bus->pd()) ? 1 : 0);
@@ -530,7 +548,7 @@ void printI2CBus(I2CSystemBus* i_bus)
     if (!size.empty())
         fprintf(g_fp, "%s<size>%s</size>\n", mrwIndent(2), size.c_str());
 
-    ecmdTarget_t target = mrwGetTarget(slavePath, g_targetFile);
+    target = mrwGetTarget(slavePath, g_targetFile);
     if (target.node != -1)
     {
         fprintf(g_fp, "%s<target><name>%s</name><node>%d</node><position>%d</position></target>\n",
