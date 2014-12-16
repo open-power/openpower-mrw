@@ -263,7 +263,7 @@ void PrintPCIEBus::printPCIEBus(PCIESystemBus* i_bus)
     fprintf(g_fp, "%s<instance-path>%s</instance-path>\n", mrwIndent(3), chipPath.c_str());
     fprintf(g_fp, "%s<unit-instance-path>%s</unit-instance-path>\n", mrwIndent(3), root->getUnitPath().c_str());
     fprintf(g_fp, "%s<iop>%d</iop>\n", mrwIndent(3), root->iop());
-    fprintf(g_fp, "%s<lane-mask>0x%.2X</lane-mask>\n", mrwIndent(3), getLaneMask(i_bus));
+    fprintf(g_fp, "%s<lane-mask>0x%04X</lane-mask>\n", mrwIndent(3), getLaneMask(i_bus));
     fprintf(g_fp, "%s<hx-lane-set-select>%s</hx-lane-set-select>\n", mrwIndent(3), hxSelect.c_str());
 
     if (target.name == "pu")
