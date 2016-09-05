@@ -1,9 +1,0 @@
-
-To run the MRW tools, you will need to make sure to install
-xml2 and xsltproc.
-
-On Debian/Ubuntu:
-apt-get install libxml2-dev libxml2-utils xsltproc
-
-On Fedora/RedHat:
-yum install libxml2-devel libxml2 xsltproc
